@@ -61,7 +61,7 @@ form.addEventListener('submit', async (e) => {
   formData.append("college", college);
   formData.append("screenshot", screenshotName);
 
-  const uploadURL = "https://script.google.com/macros/s/AKfycbw0plP2QytDjLh4yJypYMDlDa1hKgz8itfW96IvtV3pRXTtYKbrDGpDtR5ouCD7lrNe/exec";
+
 
   try {
     await fetch(uploadURL, {
