@@ -1,6 +1,7 @@
-// === Variables ===
+// === Initial Share Count ===
 let shareCount = Number(localStorage.getItem("shareCount")) || 0;
 
+// === DOM Elements ===
 const form = document.getElementById('registrationForm');
 const whatsappBtn = document.getElementById('whatsappBtn');
 const shareCountDisplay = document.getElementById('shareCount');
@@ -29,7 +30,7 @@ whatsappBtn.addEventListener('click', () => {
     shareCountDisplay.innerText = `Click count: ${shareCount}/5`;
 
     if (shareCount === 5) {
-      alert("✅ Sharing complete. You may now submit the form.");
+      alert("✅ Sharing complete. You can now submit the form.");
     }
   } else {
     alert("✅ You’ve already shared 5 times.");
@@ -37,25 +38,47 @@ whatsappBtn.addEventListener('click', () => {
 });
 
 // === Form Submission ===
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   if (shareCount < 5) {
-    alert("❌ Please share 5 times on WhatsApp before submitting.");
+    alert("❌ Please share 5 times before submitting the form.");
     return;
   }
 
   submitBtn.disabled = true;
 
-  // OPTIONAL: You can still validate inputs here if needed
-  // const name = document.getElementById('name').value.trim();
-  // const phone = document.getElementById('phone').value.trim();
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const college = document.getElementById('college').value.trim();
+  const screenshotFile = document.getElementById('screenshot').files[0];
+  const screenshotName = screenshotFile ? screenshotFile.name : "Not uploaded";
 
-  // === Final step: Thank you message
-  localStorage.setItem("submitted", true);
-  localStorage.removeItem("shareCount");
+  const formData = new URLSearchParams();
+  formData.append("name", name);
+  formData.append("phone", phone);
+  formData.append("email", email);
+  formData.append("college", college);
+  formData.append("screenshot", screenshotName);
 
-  form.reset();
-  form.style.display = "none";
-  thankYou.style.display = "block";
+  const uploadURL = "https://script.google.com/macros/s/AKfycbwJBZq-PaZym-0YHHppKjiizpnFE4kGRmoKm5q2M3zBANwZ3210AbZAH9AmtUYZV74SSw/exec";
+
+  try {
+    await fetch(uploadURL, {
+      method: "POST",
+      body: formData
+    });
+
+    localStorage.setItem("submitted", true);
+    localStorage.removeItem("shareCount");
+
+    form.reset();
+    form.style.display = "none";
+    thankYou.style.display = "block";
+  } catch (error) {
+    console.error("Submission error:", error);
+    alert("❌ Error submitting the form. Please try again.");
+    submitBtn.disabled = false;
+  }
 });
