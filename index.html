@@ -3,38 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tech for Girls Registration</title>
-  <link rel="stylesheet" href="style.css"/>
+  <title>Tech for Girls - Registration</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Tech for Girls: Registration</h1>
+    <h1>👩‍💻 Tech for Girls Registration</h1>
+    
+    <form id="registrationForm" class="form">
+      <input type="text" id="name" placeholder="Full Name" required />
+      <input type="number" id="phone" placeholder="Phone Number" required />
+      <input type="email" id="email" placeholder="Email Address" required />
+      <input type="text" id="college" placeholder="College / Department" required />
+      
+      <label for="screenshot">Upload Screenshot:</label>
+      <input type="file" id="screenshot" accept="image/*,.pdf" />
 
-    <form id="registrationForm">
-      <label>Name</label>
-      <input type="text" id="name" required />
+      <button type="button" id="whatsappBtn" class="share-btn">📲 Share on WhatsApp</button>
+      <p id="shareCount">Click count: 0/5</p>
 
-      <label>Phone Number</label>
-      <input type="number" id="phone" required />
-
-      <label>Email</label>
-      <input type="email" id="email" required />
-
-      <label>College/Department</label>
-      <input type="text" id="college" required />
-
-      <div class="share-section">
-        <button type="button" id="whatsappBtn">Share on WhatsApp</button>
-        <p id="shareCount">Click count: 0/5</p>
-      </div>
-
-      <label>Upload Screenshot</label>
-      <input type="file" id="screenshot" accept="image/*" required />
-
-      <button type="submit" id="submitBtn">Submit Registration</button>
+      <button type="submit" id="submitBtn" class="submit-btn">✅ Submit Registration</button>
     </form>
 
-    <p id="thankYouMessage" style="display: none;">🎉 Your submission has been recorded. Thanks for being part of Tech for Girls!</p>
+    <div id="thankYouMessage" class="thankyou">
+      🎉 Your submission has been recorded.<br>Thanks for being part of <strong>Tech for Girls</strong>!
+    </div>
   </div>
 
   <script src="script.js"></script>
